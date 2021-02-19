@@ -7,7 +7,7 @@ class BookSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class AddBookToWishListSerializers(serializers.ModelSerializer):
+class BookToWishListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BookWishList

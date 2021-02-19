@@ -23,6 +23,9 @@ urlpatterns = [
     path('book/', views.BookView.as_view(), name='book_view'),
     path('bookDetails/<pk>/', views.BookDetailsView.as_view(), name='book_details'),
     path('addBookToWishList/', views.AddBookToWishList.as_view(), name='add_book_to_wish_list'),
+    path('bookToWishListDetails/<pk>/', views.BookToWishListDetailsView.as_view(), name='book_to_wish_list_details'),
+
+
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]

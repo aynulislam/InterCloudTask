@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from .serializers import BookSerializer, AddBookToWishListSerializers
+from .serializers import BookSerializer, BookToWishListSerializer
 from .models import BookWishList, Book
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 # Create your views here.
@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 class BookView(APIView):
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)    
 
     def get(self, request):
         allBook = Book.objects.all()
@@ -29,7 +29,7 @@ class BookView(APIView):
 
 class BookDetailsView(APIView):
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)    
 
     def get(self, request, pk):
         getBook = Book.objects.get(pk=pk)
@@ -53,12 +53,41 @@ class BookDetailsView(APIView):
 
 class AddBookToWishList(APIView):
 
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)    
+
+    def get(self, request):
+        allBookToWishList = BookWishList.objects.all()
+        serializer = BookToWishListSerializer(allBookToWishList, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = AddBookToWishListSerializers(data = request.data)
+        serializer = BookToWishListSerializer(data = request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status = status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_403_FORBIDDEN)
+
+
+class BookToWishListDetailsView(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, pk):
+        getBookToWishList = BookWishList.objects.get(pk=pk)
+        serializer = BookToWishListSerializer(getBookToWishList)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        getBookToWishList = BookWishList.objects.get(pk=pk)
+        serializer = BookToWishListSerializer(getBookToWishList, data= request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status= status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_403_FORBIDDEN)
+
+    def delete(self, request, pk):
+        getBookToWishList = BookWishList.objects.get(pk=pk)
+        getBookToWishList.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
