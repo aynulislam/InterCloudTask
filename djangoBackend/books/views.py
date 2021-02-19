@@ -10,6 +10,8 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 class BookView(APIView):
 
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         allBook = Book.objects.all()
         serializer = BookSerializer(allBook, many=True)
@@ -26,6 +28,8 @@ class BookView(APIView):
 
 
 class BookDetailsView(APIView):
+
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, pk):
         getBook = Book.objects.get(pk=pk)
@@ -48,6 +52,9 @@ class BookDetailsView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class AddBookToWishList(APIView):
+
+    permission_classes = (IsAuthenticated,)
+
     def post(self, request):
         serializer = AddBookToWishListSerializers(data = request.data)
         if serializer.is_valid():
