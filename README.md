@@ -12,6 +12,10 @@
 5. create superuser/admin command:
     python3 manage.py createsuperuser
     
+    or login with admin  http://127.0.0.1:8000/admin/
+                        username : tamxeed
+                        password : tamxeed_3781
+    
 6. than use this command for migration
     python3 manage.py makemigrations
   
