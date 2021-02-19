@@ -31,7 +31,7 @@
  admin can view,edit,delete books url : http://127.0.0.1:8000/bookDetails/1/
  
  admin can add, view bookwise wish /(user can only create and view) url : http://127.0.0.1:8000/addBookToWishList/ 
- admin can view,edit,delete bookwise wish url: http://127.0.0.1:8000/bookToWishListDetails/1/
+ admin can view,edit,delete bookwise wish/(user can only view) url: http://127.0.0.1:8000/bookToWishListDetails/1/
  
  
  need to be use jwt webtoken (login-register)  when  apply any request or response method (create,view,edit,delete) 
